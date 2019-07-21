@@ -1,0 +1,99 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Пешком по Екатеринбургу</title>
+  <style>
+    html, body, #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+
+    .dijitDialogUnderlayWrapper, .esriIdentityDialog.dijitDialog {
+    	display: none !important;
+    }
+
+    .esri-ui-top-right {
+    	bottom: 0;
+    }
+
+    .esri-view-height-small .esri-ui-corner .esri-component.esri-widget--panel {
+    	max-height: 100% !important;
+    }
+
+    .esri-ui-corner .esri-component.esri-widget--panel {
+    	width: 280px !important;
+    }
+
+    .esri-legend__service {
+    	padding: 10px !important;
+    }
+
+    .esri-legend__layer-table--size-ramp {
+    	margin: 0 !important;
+    }
+
+    .esri-component.esri-attribution.esri-widget {
+		display: none;
+    }
+
+    .esri-ui-inner-container.esri-ui-corner-container {
+    	bottom: 0 !important;
+    }
+
+    .esri-component.esri-search.esri-widget {
+    	position: absolute;
+    	left: 50px;
+    }
+
+  </style>
+  
+  <link rel="stylesheet" href="https://js.arcgis.com/4.12/esri/css/main.css">
+  <script src="https://js.arcgis.com/4.12/"></script>
+  
+  <script>  
+     require([
+      "esri/WebMap",
+      "esri/views/MapView",
+      "esri/widgets/Legend",
+      "esri/widgets/ScaleBar",
+      "esri/widgets/Search"
+    ], function(WebMap, MapView, Legend, ScaleBar, Search) {
+
+      var webmap = new WebMap({
+        portalItem: {
+          id: "0ae1465ae492477f901635e2042b066f"
+        }
+      });
+
+      var view = new MapView({
+        container: "viewDiv",
+        map: webmap
+      });
+
+      var legend = new Legend({
+        view: view
+      });
+      view.ui.add(legend, "top-right");
+
+      var scalebar = new ScaleBar({
+        view: view
+      });
+      view.ui.add(scalebar, "bottom-left");
+
+      var search = new Search({
+        view: view
+      });
+
+      view.ui.add(search, "top-left");
+      
+    });
+  </script>
+</head>
+<body>
+  <div id="viewDiv"></div>
+</body>
+</html>
+
