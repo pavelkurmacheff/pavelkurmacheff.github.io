@@ -11,10 +11,6 @@
       width: 100%;
     }
 
-    .dijitDialogUnderlayWrapper, .esriIdentityDialog.dijitDialog {
-    	display: none !important;
-    }
-
     .esri-ui-top-right {
     	bottom: 0;
     }
@@ -48,6 +44,14 @@
     	left: 50px;
     }
 
+    .esri-view .esri-directions {
+      position: fixed;
+      right: 15px;
+    }
+    .esri-view .esri-component.esri-attribution {
+      position: fixed;
+    }
+
   </style>
   
   <link rel="stylesheet" href="https://js.arcgis.com/4.12/esri/css/main.css">
@@ -59,8 +63,9 @@
       "esri/views/MapView",
       "esri/widgets/Legend",
       "esri/widgets/ScaleBar",
-      "esri/widgets/Search"
-    ], function(WebMap, MapView, Legend, ScaleBar, Search) {
+      "esri/widgets/Search",
+       "esri/widgets/Directions"
+    ], function(WebMap, MapView, Legend, ScaleBar, Search, Directions) {
 
       var webmap = new WebMap({
         portalItem: {
@@ -74,20 +79,27 @@
       });
 
       var legend = new Legend({
-        view: view 
+        view: view
       });
-      view.ui.add(legend, "top-right");
+      view.ui.add(legend, "bottom-left");
 
       var scalebar = new ScaleBar({
         view: view
       });
-      view.ui.add(scalebar, "bottom-left");
+      view.ui.add(scalebar, "bottom-right");
 
       var search = new Search({
         view: view
       });
 
       view.ui.add(search, "top-left");
+
+      var directions = new Directions({
+        view: view,
+     	routeServiceUrl: "https://utility.arcgis.com/usrsvcs/appservices/PGKuXJlwV82dwLGz/rest/services/World/Route/NAServer/Route_World"
+
+      });
+      view.ui.add(directions, "top-right");
       
     });
   </script>
